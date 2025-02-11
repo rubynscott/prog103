@@ -15,16 +15,28 @@ dna2 <- "attattaggaacaca"
 # Use them to print whether or not the following statements are TRUE or FALSE.
 #
 # w is greater than 10
+w > 10
 # "green" is in colors
+"green" %in% colors
 # x is greater than y
+x > y
 # Each value in masses is greater than 40.
+masses > 40
 # 2 * x + 0.2 is equal to y
+y == 2 * x +0.2
 # dna1 is the same as dna2
+dna1 == dna2
 # dna1 is not the same as dna2
+dna1 != dna2
 # w is greater than x, or y is greater than z
+w > x
+y > z
 # x times w is between 13.2 and 13.5
+13.5 > x * w
+13.2 < x * w
 # Each mass in masses is between 30 and 50.
-
+masses < 50
+masses > 30
 
 # Making choices with if, else, and else if -------------------------------
 
