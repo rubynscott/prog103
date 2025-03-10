@@ -80,7 +80,7 @@ hours_cold_per_day
 
 # P6 Copy-paste the function you wrote in P3 and edit it to add a parameter that
 # lets you switch between extreme heat and cold exposure.
-cold_temp <- function(site, season, extreme_type) {
+extreme_hours_per_day <- function(site, season, extreme_type) {
   if(extreme_type == "cold") {
     is_extreme <- kefj_temperature <= -4
   } else if(extreme_type == "hot") {
@@ -100,7 +100,7 @@ cold_temp <- function(site, season, extreme_type) {
   return(result)
 }
 
-cold_temp("Nuka_Pass" , "Fall" , "hot")
+extreme_hours_per_day("Nuka_Pass" , "Fall" , "hot")
 
 # Season to taste ---------------------------------------------------------
 
@@ -121,15 +121,16 @@ seasons <- kefj_season
 
 # P9 Copy-paste your answer to P8 and add a nested for loop to iterate across
 # sites as well as seasons.
-seasons <- kefj_season
-sites <- kefj_site
-for (season in unique(kefj_season))  {
-  for (site in unique(kefj_site)) {
-  heat_exposure <- cold_temp(site, season, "hot")
-  cold_exposure <- cold_temp(site, season, "cold")
+seasons <- unique(kefj_season)
+sites <- unique(kefj_site)
+for (season in seasons)  {
+  for (site in sites) {
+  heat_exposure <- extreme_hours_per_day(site, season, "hot")
+  cold_exposure <- extreme_hours_per_day(site, season, "cold")
   print(paste(site, season, heat_exposure, cold_exposure))
+  }
 }
 
 # P10 Examine your results from P9. You should find two outputs where both
 # extreme heat and cold exposure were 0. What season were they in?
-#Spring
+#They were in the fall

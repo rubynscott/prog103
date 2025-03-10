@@ -31,48 +31,68 @@ dna1 != dna2
 # w is greater than x, or y is greater than z
 w > x
 y > z
+w>x | y>z
 # x times w is between 13.2 and 13.5
-13.5 > x * w
-13.2 < x * w
+13.5 > x * w & 13.2 < x * w
 # Each mass in masses is between 30 and 50.
-masses < 50
-masses > 30
-
+masses < 50 & masses > 30
+#TRUE TRUE FALSE FALSE TRUE
 # Making choices with if, else, and else if -------------------------------
 
 # 1. Complete the following if statement so that if age_class is equal to “egg”
 # it sets y <- 10.
 
 age_class = "egg"
-if () {
-
+if (age_class == "egg") {
+  y<-10
 }
 y
-
+#y=10
 # 2. Complete the following if statement so that if age_class is equal to “egg”
 # it sets y <- 10 and if age_class is equal to “larva” it sets y <- 5.
 
 age_class = "larva"
-if () {
-
+if (age_class == "egg") {
+  y<-10
+} else if (age_class == "larva") {
+  y<-5
 }
 y
-
+#y=5
 # 3. Complete the following if statement so that if age_class is equal to “egg”
 # it sets y <- 10 and if age_class is equal to “larva” it sets y <- 5 and if
 # age_class is something else then it sets the value of y <- 0.
 
 age_class = "adult"
-if () {
-
+if (age_class == "egg") {
+  y<-10
+} else if (age_class == "larva") {
+  y<-5
+} else {
+  y<-0
 }
 y
-
+#y=0
 # 4. Convert your if/else if/ else statement from (3) into a function that takes
 # age_class as an argument and returns y. Call this function 4 times, once with
 # each of the following values for age_class: “egg”, “larva”, “adult”,
 # “senescent”.
+life_stage <- function(age_class){
+  if (age_class == "egg") {
+    y<-10
+  } else if (age_class == "larva") {
+    y<-5
+  } else {
+    y<-0
+  }
+  y
+}
+  print(y)
 
+life_stage("egg") #10
+life_stage("larva") #5
+life_stage("adult") #0
+life_stage("senescent") #0
 
 # Repeating yourself with vectorized functions ----------------------------
 
@@ -80,10 +100,10 @@ y
 # just their first and last characters. Verify it works on the names of sharks
 # below.
 sharks <- c("thresher", "mako", "tiger", "hammerhead")
-shorten_string <- function(???) {
-  first_letter <- substr(???, 1, 1)
+shorten_string <- function(x) {
+  first_letter <- substr(x, 1, 1)
   # Hint: nchar() returns the number of characters in a string
-  last_letter <- substr(???, nchar(???), nchar(???))
+  last_letter <- substr(x, nchar(x), nchar(x))
   result <- paste(first_letter, last_letter, sep = "")
   return(result)
 }
@@ -97,14 +117,23 @@ shorten_string(sharks)
 
 # 2. a and b for a shortfin mako are estimated to be 5.243e-6 and 3.141. What
 # are the estimated masses of sharks that are 100, 200, and 300 cm long?
-a <- ???
-b <- ???
-??? * c(???)^???
-
+a <- 5.243e-6
+b <- 3.141
+a * c(100)^b
+a * c(200)^b
+a * c(300)^b
 # 3. Write a function called shortfin_mako_mass_kg that takes a parameter L_cm
 # and returns the estimated masses of shortfin makos with fork lengths L_cm. Use
 # your function to answer question 2.
-
+shortfin_mako_mass_kg <- function(L_cm){
+  a <- 5.243e-6
+  b <- 3.141
+  mass <- a * c(L_cm)^b
+  return(mass)
+}
+shortfin_mako_mass_kg(100)
+shortfin_mako_mass_kg(200)
+shortfin_mako_mass_kg(300)
 
 # Repeating yourself with for loops ---------------------------------------
 
@@ -113,28 +142,33 @@ b <- ???
 
 numbers <- c(1, 2, 3, 4, 5)
 for (number in numbers) {
-  print(number)
+  product <- numbers * 3
+  print(product)
 }
 
 # 2. Write a for loop that loops over the following vector and prints out the
 # mass in kilograms (mass_kg = 2.2 * mass_lb)
 
 mass_lbs <- c(2.2, 3.5, 9.6, 1.2)
+for(number in mass_lbs){
+  mass_kg <- 2.2 * number
+  print(mass_kg)
+}
 
 # 3. Complete the code below so that it prints out the name of each bird one
 # line at a time.
 
 birds = c("albatross", "puffin", "pelican", "penguin")
-for (i in 1:length(???)) {
-  print(birds[???])
+for (i in 1:length(birds)) {
+  print(birds[i])
 }
 
 # 4. Complete the code below so that it stores one area for each radius.
 
 radius <- c(1.3, 2.1, 3.5)
 areas <- rep(0, length(radius))
-for (??? in 1:length(???)) {
-  areas[???] <- pi * radius[i] ^ 2
+for (i in 1:length(radius)) {
+  areas[i] <- pi * radius[i] ^ 2
 }
 areas
 
@@ -144,15 +178,19 @@ areas
 # its own line.
 
 height_ft <- c(5.1, 6.3, 5.7, 5.4)
-
+height_m <- rep(0, length(height_ft))
+for (i in 1:length(height_ft)){
+  height_m[i] <- height_ft[i] / 3.28
+}
+height_m
 # 6. Complete the code below to calculate an area for each pair of lengths and
 # widths, store the areas in a vector, and after they are all calculated print
 # them out:
 
 lengths = c(1.1, 2.2, 1.6)
 widths = c(3.5, 2.4, 2.8)
-areas <- rep(0, ???)
-for (i in ???) {
-  areas[???] <- lengths[???] * widths[???]
+areas <- rep(0, length(lengths))
+for (i in 1:length(lengths)) {
+  areas[i] <- lengths[i] * widths[i]
 }
 areas
